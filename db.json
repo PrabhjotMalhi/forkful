@@ -1,0 +1,11 @@
+{
+  "recipes": [
+    {
+      "id": "1",
+      "title": "Classic Spaghetti Carbonara",
+      "cook_time_minutes": 30,
+      "servings": 4,
+      "difficulty": "medium"
+    }
+  ]
+} 

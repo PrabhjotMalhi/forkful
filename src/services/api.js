@@ -14,10 +14,22 @@ export const api = {
   },
 
   async createRecipe(data) {
+    // Get all recipes to determine the next ID
+    const recipes = await this.getAllRecipes();
+    const maxId = recipes.reduce((max, recipe) => {
+      const recipeId = parseInt(recipe.id) || 0;
+      return recipeId > max ? recipeId : max;
+    }, 0);
+    
+    const newData = {
+      ...data,
+      id: (maxId + 1).toString() // Convert to string to maintain consistency
+    };
+
     const response = await fetch(`${API_BASE_URL}/recipes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newData),
     });
     if (!response.ok) throw new Error('Failed to create recipe');
     return response.json();
