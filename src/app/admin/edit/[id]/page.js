@@ -5,13 +5,15 @@ import { notFound } from 'next/navigation';
 export const dynamic = 'force-dynamic';
 
 export default async function EditRecipePage({ params }) {
+  const id = await params.id;
+  
   try {
-    const recipe = await api.getRecipe(params.id);
+    const recipe = await api.getRecipe(id);
 
-    const handleSubmit = async (data) => {
+    async function handleSubmit(data) {
       'use server';
-      await api.updateRecipe(params.id, data);
-    };
+      await api.updateRecipe(id, data);
+    }
 
     return (
       <div className="container mx-auto px-4 py-8">
